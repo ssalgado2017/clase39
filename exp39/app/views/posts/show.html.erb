@@ -1,0 +1,36 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @post.title %>
+</p>
+<p>
+	<small><%= @post.user.email %></small>	
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @post.description %>
+</p>
+
+<%= link_to 'Edit', edit_post_path(@post) %> |
+<%= link_to 'Back', posts_path %>
+<hr>
+<h2>Crear Comentario</h2>
+<%= form_with(url: post_comments_path(@post), model: @comment, local: true) do |form| %>
+	<%= form.label :description%>
+	<%= form.text_area :description%>
+	<%= form.submit%>
+
+<% end %>
+<h2>Comentarios</h2>
+<ul>
+	<% @comments.each do |comment| %>
+		<% unless comment.id.nil? %>
+		<li>
+			<p><small><%= comment.user.email %> - <%= comment.created_at.strftime("%d/%m/%Y") %></small></p>
+			<p><%= comment.description %></p>
+		</li>
+		<% end %>
+	<% end %>
+</ul>
